@@ -1,0 +1,61 @@
+version: '3'
+
+vars:
+  BIN_DIR: ./bin
+  CMD_DIR: ./cmd
+
+tasks:
+  setup:
+    cmds:
+      - mkdir -p {{.BIN_DIR}}
+
+  build:proto:
+    desc: Build the protobuf files
+    dir: pb
+    cmds:
+      - protoc *.proto --proto_path=. --go_out=. --go_opt=module=github.com/ericslandry/grpc/pb/greeter --go-grpc_out=. --go-grpc_opt=module=github.com/ericslandry/grpc/pb/greeter
+
+  build:client:
+    desc: Build the client application
+    deps:
+      - setup
+    cmds:
+      - go build -o {{.BIN_DIR}}/client {{.CMD_DIR}}/client
+
+  run:client:
+    desc: Run the client application
+    cmds:
+      - "{{.BIN_DIR}}/client"
+
+  build:server:
+    desc: Build the server application
+    deps:
+      - setup
+    cmds:
+      - go build -o {{.BIN_DIR}}/server {{.CMD_DIR}}/server
+
+  run:server:
+    desc: Run the server application
+    cmds:
+      - "{{.BIN_DIR}}/server"
+
+  build:all:
+    desc: Build both client and server applications
+    cmds:
+      - task: build:proto
+      - task: build:client
+      - task: build:server
+
+  run:all:
+    desc: Run both client and server applications (in parallel)
+    cmds:
+      - task: run:server
+      - task: run:client
+    parallel: true
+
+  default:
+    desc: "Build and run both client and server"
+    cmds:
+      - task: build:all
+      - task: run:all
+    parallel: false
