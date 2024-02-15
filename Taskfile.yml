@@ -40,6 +40,7 @@ tasks:
     desc: Run the server application
     cmds:
       - "{{.BIN_DIR}}/grpc-server &"
+      - "until grpcurl -proto ./pb/greeter.proto -plaintext localhost:8080 list; do printf '.'; sleep 1; done"
 
   run:client:
     desc: Run the client application
@@ -48,19 +49,21 @@ tasks:
 
   run:kill:
     desc: Stop the server application
+    ignore_error: true
+    silent: true
     cmds:
       - "pkill -f grpc-server"
 
   run:all:
     desc: Run both client and server applications (in parallel)
     cmds:
+      - task: run:kill
       - task: run:server
       - task: run:client
-    parallel: true
+      - task: run:kill
 
   default:
     desc: "Build and run both client and server"
     cmds:
       - task: build:all
       - task: run:all
-    parallel: false
