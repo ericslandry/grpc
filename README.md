@@ -1,4 +1,3 @@
-Go GRPC Dev Container
 # Go GRPC Dev Container
 
 This repository contains a Go GRPC example project that can be run in a dev container.
