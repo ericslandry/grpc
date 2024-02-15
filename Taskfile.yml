@@ -20,24 +20,14 @@ tasks:
     deps:
       - setup
     cmds:
-      - go build -o {{.BIN_DIR}}/client {{.CMD_DIR}}/client
-
-  run:client:
-    desc: Run the client application
-    cmds:
-      - "{{.BIN_DIR}}/client"
+      - go build -o {{.BIN_DIR}}/grpc-client {{.CMD_DIR}}/client
 
   build:server:
     desc: Build the server application
     deps:
       - setup
     cmds:
-      - go build -o {{.BIN_DIR}}/server {{.CMD_DIR}}/server
-
-  run:server:
-    desc: Run the server application
-    cmds:
-      - "{{.BIN_DIR}}/server"
+      - go build -o {{.BIN_DIR}}/grpc-server {{.CMD_DIR}}/server
 
   build:all:
     desc: Build both client and server applications
@@ -45,6 +35,21 @@ tasks:
       - task: build:proto
       - task: build:client
       - task: build:server
+
+  run:server:
+    desc: Run the server application
+    cmds:
+      - "{{.BIN_DIR}}/grpc-server &"
+
+  run:client:
+    desc: Run the client application
+    cmds:
+      - "{{.BIN_DIR}}/grpc-client --name=Mike"
+
+  run:kill:
+    desc: Stop the server application
+    cmds:
+      - "pkill -f grpc-server"
 
   run:all:
     desc: Run both client and server applications (in parallel)
