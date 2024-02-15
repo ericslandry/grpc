@@ -4,8 +4,8 @@ This repository contains a Go GRPC example project that can be run in a dev cont
 
 ## Prerequisites
 
-- Docker: [Install Docker](https://docs.docker.com/get-docker/)
-- VSCode: [Install VSCode](https://code.visualstudio.com/) with [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- [Install Docker](https://docs.docker.com/get-docker/)
+- [Install VSCode](https://code.visualstudio.com/) with [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
 ## Getting Started
 
