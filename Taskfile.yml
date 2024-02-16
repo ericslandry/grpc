@@ -46,7 +46,6 @@ tasks:
     cmds:
       - "{{.BIN_DIR}}/grpc-server &"
       - "until grpcurl -proto ./pb/greeter.proto -plaintext localhost:8080 list > /dev/null; do printf '.'; sleep 1; done"
-      # grpcurl -proto ./pb/greeter.proto -plaintext localhost:8080 grpc.greeter.v1.Greeter/SayHello
 
   run:client:
     desc: Run the client application

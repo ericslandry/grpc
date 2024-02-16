@@ -19,24 +19,54 @@ This repository contains a Go GRPC example project that can be run in a dev cont
    ```
 3. Reopen the repository in a container:
       - Click on the green icon in the bottom left corner of the window and select `Reopen in Container`.
+      - Alternatively, you can open the command palette (Ctrl+Shift+P) and type `Remote-Containers: Reopen in Container`.
 
-4. Run the project:
+   After a reload, VSCode should display a "Dev Container: Go" button at the bottom left:
+   ![Dev Container: Go](./docs/devContainer.png)
+
+4. Run the `default` [Task](https://taskfile.dev/) target contained in `Taskfile.yml`:
    ```shell
    task
    ```
-   You shouls see the following output:
+   You should see the following output:
    ```
+   vscode ➜ /workspaces/grpc (master) $ task
    task: [build:proto] protoc *.proto --proto_path=. --go_out=. --go_opt=module=github.com/ericslandry/grpc/pb/greeter --go-grpc_out=. --go-grpc_opt=module=github.com/ericslandry/grpc/pb/greeter
-   task: [setup] mkdir -p ./bin
+   task: [build:setup] mkdir -p ./bin
    task: [build:client] go build -o ./bin/grpc-client ./cmd/client
-   task: [setup] mkdir -p ./bin
+   go: downloading github.com/urfave/cli/v2 v2.27.1
+   go: downloading google.golang.org/grpc v1.61.0
+   go: downloading golang.org/x/net v0.21.0
+   go: downloading google.golang.org/genproto/googleapis/rpc v0.0.0-20240205150955-31a09d347014
+   go: downloading golang.org/x/sys v0.17.0
+   go: downloading github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673
+   go: downloading github.com/cpuguy83/go-md2man/v2 v2.0.2
+   go: downloading github.com/russross/blackfriday/v2 v2.1.0
+   go: downloading golang.org/x/text v0.14.0
+   task: [build:setup] mkdir -p ./bin
    task: [build:server] go build -o ./bin/grpc-server ./cmd/server
    task: [run:server] ./bin/grpc-server &
-   task: [run:server] until grpcurl -proto ./pb/greeter.proto -plaintext localhost:8080 list; do printf '.'; sleep 1; done
-   grpc.greeter.v1.Greeter
+   task: [run:server] until grpcurl -proto ./pb/greeter.proto -plaintext localhost:8080 list > /dev/null; do printf '.'; sleep 1; done
    task: [run:client] ./bin/grpc-client --name=Mike
-   2024/02/15 20:22:59 server listening at [::]:8080
-   2024/02/15 20:22:59 Received: Mike
-   2024/02/15 20:22:59 Greeting: Hello, Mike
-   task: completed with code 0
+   2024/02/16 13:50:04 server is listening at [::]:8080
+   2024/02/16 13:50:04 Received: Mike
+   2024/02/16 13:50:04 Greeting: Hello, Mike
+   2024/02/16 13:50:04 server is being stopped
+   ```
+
+## Extra Testing with grpcurl
+
+To see the gRPC server in action, you can use the [grpcurl](https://github.com/fullstorydev/grpcurl) command-line tool to interact with the server. The `grpcurl` tool is already installed in the dev container.
+
+1. Make sure the server is running:
+   ```shell
+   task run:server
+   ```
+2. Try list the server's services:
+   ```shell
+   grpcurl -proto ./pb/greeter.proto -plaintext localhost:8080 list
+   ```
+3. Try to call the `SayHello` method:
+   ```shell
+   grpcurl -proto ./pb/greeter.proto -plaintext -d '{"name": "Bob"}' localhost:8080 greeter.Greeter/SayHello
    ```
