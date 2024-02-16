@@ -1,6 +1,6 @@
 # Go GRPC Dev Container
 
-This repository contains a Go GRPC example project that can be run in a dev container.
+This repository contains a Go GRPC example project that is meant to be ran in a [dev container](https://code.visualstudio.com/docs/devcontainers/containers).
 
 ## Prerequisites
 
@@ -21,10 +21,10 @@ This repository contains a Go GRPC example project that can be run in a dev cont
       - Click on the green icon in the bottom left corner of the window and select `Reopen in Container`.
       - Alternatively, you can open the command palette (Ctrl+Shift+P) and type `Remote-Containers: Reopen in Container`.
 
-   After a reload, VSCode should display a "Dev Container: Go" button at the bottom left:
+   After a reload, VSCode should display "Dev Container: Go" at the bottom left:
    ![Dev Container: Go](./docs/devContainer.png)
 
-4. Run the `default` [Task](https://taskfile.dev/) target contained in `Taskfile.yml`:
+4. Run the `default` [Taskfile](https://taskfile.dev/) target:
    ```shell
    task
    ```
@@ -53,6 +53,8 @@ This repository contains a Go GRPC example project that can be run in a dev cont
    2024/02/16 13:50:04 Greeting: Hello, Mike
    2024/02/16 13:50:04 server is being stopped
    ```
+
+   See `Taskfile.yml` for more details on the various targets or run `task --list`.
 
 ## Extra Testing with grpcurl
 
