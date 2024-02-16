@@ -40,10 +40,3 @@ This repository contains a Go GRPC example project that can be run in a dev cont
    2024/02/15 20:22:59 Greeting: Hello, Mike
    task: completed with code 0
    ```
-
-## Testing
-You can use [grpcurl](https://github.com/fullstorydev/grpcurl) to test the server:
-
-```
-grpcurl -proto ./pb/greeter.proto -plaintext localhost:8080 grpc.greeter.v1.Greeter/SayHello
-```
