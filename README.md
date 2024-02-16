@@ -42,7 +42,7 @@ This repository contains a Go GRPC example project that can be run in a dev cont
    ```
 
 ## Testing
-You can use `grpcurl` to test the server:
+You can use [grpcurl](https://github.com/fullstorydev/grpcurl) to test the server:
 
 ```
 $ grpcurl -proto ./pb/greeter.proto -plaintext localhost:8080 grpc.greeter.v1.Greeter/SayHello
