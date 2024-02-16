@@ -11,11 +11,11 @@ This repository contains a Go GRPC example project that can be run in a dev cont
 
 1. Clone this repository:
    ```shell
-   $ git clone https://github.com/ericslandry/grpc.git
+   git clone https://github.com/ericslandry/grpc.git
    ```
 2. Open the repository in VSCode:
    ```shell
-   $ code grpc
+   code grpc
    ```
 3. Reopen the repository in a container:
       - Click on the green icon in the bottom left corner of the window and select `Reopen in Container`.
@@ -45,8 +45,5 @@ This repository contains a Go GRPC example project that can be run in a dev cont
 You can use [grpcurl](https://github.com/fullstorydev/grpcurl) to test the server:
 
 ```
-$ grpcurl -proto ./pb/greeter.proto -plaintext localhost:8080 grpc.greeter.v1.Greeter/SayHello
-{
-  "greeting": "Hello, "
-}
+grpcurl -proto ./pb/greeter.proto -plaintext localhost:8080 grpc.greeter.v1.Greeter/SayHello
 ```
